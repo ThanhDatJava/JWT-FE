@@ -5,6 +5,9 @@ import { FaCoffee, FaLeaf } from "react-icons/fa";
 import { GiStrawberry } from "react-icons/gi";
 
 import DrinkComponentTest from "./Drink/drinkComponentTest";
+import DefaultHomePage from "./DefaultHomePage/defaultHomePage";
+import RewardsHomePage from "./Rewards/rewardsHomePage";
+import OrderHomePage from "./Oder/oderHomePage";
 
 interface HomePageProps {
   dataMenu: any;
@@ -138,41 +141,18 @@ const HomeContent: React.FC<HomePageProps> = ({ dataMenu, selectedMenu }) => {
 
   return (
     <>
-      {!["Menu", "Rewards", "Gift Cards"].includes(selectedMenu) && (
-        // <Content style={{ padding: "0 48px" }}>
-        //   <Breadcrumb style={{ margin: "16px 0" }}>
-        //     {categories.map((category, index) => (
-        //       <Breadcrumb.Item key={index}>
-        //         <a href={category.link}>{category.label}</a>
-        //       </Breadcrumb.Item>
-        //     ))}
-        //   </Breadcrumb>
-
-        //   <Layout
-        //     style={{
-        //       padding: "24px 0",
-        //       background: colorBgContainer,
-        //       borderRadius: borderRadiusLG,
-        //     }}
-        //   >
-        //     <Sider style={{ background: colorBgContainer }} width={200}>
-        //       <Menu
-        //         mode="inline"
-        //         selectedKeys={[selectedItem]}
-        //         defaultOpenKeys={["sub0"]}
-        //         style={{ height: "100%" }}
-        //         items={items}
-        //         onClick={(e) => handleMenuClick(e.key)}
-        //       />
-        //     </Sider>
-
-        //     <Content style={{ padding: "0 24px", minHeight: 280 }}>
-        //       {renderContent()}
-        //     </Content>
-        //   </Layout>
-        // </Content>
-        <>Mặc định</>
+      {/* {!["Menu", "Rewards", "Order"].includes(selectedMenu) && (
+        <div style={{ marginTop: "20px" }}>
+          <DefaultHomePage />
+        </div>
+      )} */}
+      {(selectedMenu === "Home" ||
+        !["Menu", "Rewards", "Order"].includes(selectedMenu)) && (
+        <div style={{ marginTop: "20px" }}>
+          <DefaultHomePage />
+        </div>
       )}
+
       {selectedMenu === "Menu" && (
         <Content style={{ padding: "0 48px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
@@ -208,75 +188,9 @@ const HomeContent: React.FC<HomePageProps> = ({ dataMenu, selectedMenu }) => {
         </Content>
       )}
 
-      {selectedMenu === "Rewards" && (
-        <Content style={{ padding: "0 48px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            {categories.map((category, index) => (
-              <Breadcrumb.Item key={index}>
-                <a href={category.link}>{category.label}</a>
-              </Breadcrumb.Item>
-            ))}
-          </Breadcrumb>
+      {selectedMenu === "Rewards" && <RewardsHomePage />}
 
-          <Layout
-            style={{
-              padding: "24px 0",
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            <Sider style={{ background: colorBgContainer }} width={200}>
-              <Menu
-                mode="inline"
-                selectedKeys={[selectedItem]}
-                defaultOpenKeys={["sub0"]}
-                style={{ height: "100%" }}
-                items={items}
-                onClick={(e) => handleMenuClick(e.key)}
-              />
-            </Sider>
-
-            <Content style={{ padding: "0 24px", minHeight: 280 }}>
-              {renderContent()}
-            </Content>
-          </Layout>
-        </Content>
-      )}
-
-      {selectedMenu === "Gift Cards" && (
-        <Content style={{ padding: "0 48px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            {categories.map((category, index) => (
-              <Breadcrumb.Item key={index}>
-                <a href={category.link}>{category.label}</a>
-              </Breadcrumb.Item>
-            ))}
-          </Breadcrumb>
-
-          <Layout
-            style={{
-              padding: "24px 0",
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            <Sider style={{ background: colorBgContainer }} width={200}>
-              <Menu
-                mode="inline"
-                selectedKeys={[selectedItem]}
-                defaultOpenKeys={["sub0"]}
-                style={{ height: "100%" }}
-                items={items}
-                onClick={(e) => handleMenuClick(e.key)}
-              />
-            </Sider>
-
-            <Content style={{ padding: "0 24px", minHeight: 280 }}>
-              {renderContent()}
-            </Content>
-          </Layout>
-        </Content>
-      )}
+      {selectedMenu === "Order" && <OrderHomePage />}
     </>
   );
 };

@@ -48,8 +48,8 @@ const HomePage = () => {
         <Layout>
           <HomeHeader menuClickRender={handleMenuClick} />
           <HomeContent dataMenu={dataMenu} selectedMenu={selectedMenu} />
-          <HomeFooter />
         </Layout>
+        {/* <HomeFooter /> */}
       </HomeContextProvider>
     </div>
   );

@@ -10,7 +10,7 @@
 
 //   const { Header } = Layout;
 
-//   const items1: MenuProps["items"] = ["Menu", "Rewards", "Gift Cards"].map(
+//   const items1: MenuProps["items"] = ["Menu", "Rewards", "Order"].map(
 //     (key) => ({
 //       key,
 //       label: `  ${key}`,
@@ -43,6 +43,7 @@ import type { MenuProps } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import logo from "../../../assets/img/logo.png";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface HomeHeaderProps {
   menuClickRender: (menuKey: string) => void; // Hàm callback để gửi dữ liệu về cha
@@ -50,9 +51,10 @@ interface HomeHeaderProps {
 
 const HomeHeader: React.FC<HomeHeaderProps> = ({ menuClickRender }) => {
   const { Header } = Layout;
+  const router = useRouter();
 
   // Items for the menu
-  const items1: MenuProps["items"] = ["Menu", "Rewards", "Gift Cards"].map(
+  const items1: MenuProps["items"] = ["Home", "Menu", "Rewards", "Order"].map(
     (key) => ({
       key,
       label: ` ${key}`,
@@ -61,12 +63,13 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ menuClickRender }) => {
 
   // Hàm xử lý sự kiện khi click vào menu item
   const handleMenuClick = (e: { key: string }) => {
-    console.log(`Đã click vào menu item: ${e.key}`);
-
     // Gọi hàm callback từ props để gửi dữ liệu về component cha
     if (menuClickRender) {
       menuClickRender(e.key); // Gửi key của menu item đã click về cha
     }
+  };
+  const handleClickLogoHome = () => {
+    router.push("/");
   };
 
   // // Dropdown menu cho User Info
@@ -91,7 +94,13 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ menuClickRender }) => {
     >
       {/* Logo */}
       <div className="demo-logo">
-        <Image src={logo} alt="Logo" height={170} width={200} />
+        <Image
+          src={logo}
+          alt="Logo"
+          height={170}
+          width={200}
+          onClick={handleClickLogoHome}
+        />
       </div>
       {/* Ant Design Menu */}
       <Menu
