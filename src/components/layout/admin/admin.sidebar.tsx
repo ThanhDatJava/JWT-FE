@@ -52,7 +52,7 @@ const AdminSideBar = () => {
               ],
             },
             {
-              key: "g1",
+              key: "g2",
               type: "group",
               children: [
                 {
@@ -64,7 +64,7 @@ const AdminSideBar = () => {
               ],
             },
             {
-              key: "g2",
+              key: "g3",
               type: "group",
               children: [
                 {
@@ -78,7 +78,7 @@ const AdminSideBar = () => {
               ],
             },
             {
-              key: "g3",
+              key: "g4",
               type: "group",
               children: [
                 {

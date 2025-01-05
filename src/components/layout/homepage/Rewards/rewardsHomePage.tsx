@@ -70,16 +70,6 @@ export default function RewardsHomePage() {
         {prizes.map((prize, index) => (
           <div
             key={index}
-            // style={{
-            //   position: "absolute",
-            //   top: "50%",
-            //   left: "50%",
-            //   transform: `rotate(${
-            //     index * anglePerPrize
-            //   }deg) translateY(-120px)`,
-            //   transformOrigin: "0 100%",
-            //   textAlign: "center",
-            // }}
             style={{
               position: "absolute",
               top: "50%",

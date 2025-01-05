@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 import { FaCoffee, FaLeaf } from "react-icons/fa";
 import { GiStrawberry } from "react-icons/gi";
 
-import DrinkComponentTest from "./Drink/drinkComponentTest";
+import DrinkComponent from "./Drink/drinkComponent";
 import DefaultHomePage from "./DefaultHomePage/defaultHomePage";
 import RewardsHomePage from "./Rewards/rewardsHomePage";
 import OrderHomePage from "./Oder/oderHomePage";
+import PayHomePage from "./Pay/payHomePage";
 
 interface HomePageProps {
   dataMenu: any;
@@ -20,19 +21,16 @@ const HomeContent: React.FC<HomePageProps> = ({ dataMenu, selectedMenu }) => {
     if (selectedItem) {
       const itemInfo = getMenuItemInfo(selectedItem);
 
-      const { drink, menuName } = itemInfo;
+      const { type, menuName } = itemInfo;
 
-      if (drink && menuName) {
+      if (type && menuName) {
         setCategories([
           { label: "Menu", link: "/" },
           { label: menuName, link: `/${menuName.toLowerCase()}` },
-          { label: drink, link: `/${drink.toLowerCase()}` },
+          { label: type, link: `/${type.toLowerCase()}` },
         ]);
       } else {
-        console.error(
-          "Missing drink or menuName in selectedItem",
-          selectedItem
-        );
+        console.error("Missing type or menuName in selectedItem", selectedItem);
       }
     }
   }, [selectedItem]);
@@ -58,18 +56,18 @@ const HomeContent: React.FC<HomePageProps> = ({ dataMenu, selectedMenu }) => {
 
   const drinkComponents: { [key: string]: React.ElementType } = {
     ...coffeeDrinks.reduce((acc: any, coffeeName: any) => {
-      acc[coffeeName] = DrinkComponentTest;
+      acc[coffeeName] = DrinkComponent;
       return acc;
     }, {}),
 
     ...TeaDrinks.reduce((acc: any, teaName: any) => {
       // Thêm phần cho trà
-      acc[teaName] = DrinkComponentTest;
+      acc[teaName] = DrinkComponent;
       return acc;
     }, {}),
     ...CakeDrinks.reduce((acc: any, cakeName: any) => {
       // Thêm phần cho trà
-      acc[cakeName] = DrinkComponentTest;
+      acc[cakeName] = DrinkComponent;
       return acc;
     }, {}),
     // Thêm các loại đồ uống khác nếu cần
@@ -89,9 +87,9 @@ const HomeContent: React.FC<HomePageProps> = ({ dataMenu, selectedMenu }) => {
         key: `sub${key}`,
         icon: React.createElement(icon),
         label,
-        children: menuItems.map((drink, subIndex) => ({
+        children: menuItems.map((type, subIndex) => ({
           key: `${key}_${subIndex}`,
-          label: drink,
+          label: type,
         })),
       };
     }
@@ -101,23 +99,23 @@ const HomeContent: React.FC<HomePageProps> = ({ dataMenu, selectedMenu }) => {
     const [mainMenuIndex, subMenuIndex] = key.split("_").map(Number);
 
     if (drinksMenu[mainMenuIndex] && drinksMenu[mainMenuIndex][subMenuIndex]) {
-      const drink = drinksMenu[mainMenuIndex][subMenuIndex];
+      const type = drinksMenu[mainMenuIndex][subMenuIndex];
       const menuName = mainMenuNames[mainMenuIndex];
 
-      return { drink, menuName };
+      return { type, menuName };
     }
 
-    return { drink: null, menuName: null }; // Return null if not found
+    return { type: null, menuName: null }; // Return null if not found
   };
 
   const handleMenuClick = (key: string) => {
-    const { drink, menuName } = getMenuItemInfo(key);
-    if (drink && menuName) {
+    const { type, menuName } = getMenuItemInfo(key);
+    if (type && menuName) {
       setSelectedItem(key);
       setCategories([
         { label: "Menu", link: "/" },
         { label: menuName, link: `/${menuName.toLowerCase()}` },
-        { label: drink, link: `/${drink.toLowerCase()}` },
+        { label: type, link: `/${type.toLowerCase()}` },
       ]);
     }
   };
@@ -127,27 +125,22 @@ const HomeContent: React.FC<HomePageProps> = ({ dataMenu, selectedMenu }) => {
       return <div>Chào Mừng bạn đến với Thành Đạt Coffee!</div>;
     }
 
-    const { drink, menuName } = getMenuItemInfo(selectedItem);
+    const { type, menuName } = getMenuItemInfo(selectedItem);
 
-    const DrinkComponent = drinkComponents[drink];
+    const DrinkComponent = drinkComponents[type];
 
     // Nếu không có component cho món uống, trả về thông báo lỗi
     if (!DrinkComponent) {
-      return <div>Không có thông tin cho món {drink}.</div>;
+      return <div>Không có thông tin cho món {type}.</div>;
     }
 
-    return <DrinkComponent drink={drink} />;
+    return <DrinkComponent type={type} />;
   };
 
   return (
     <>
-      {/* {!["Menu", "Rewards", "Order"].includes(selectedMenu) && (
-        <div style={{ marginTop: "20px" }}>
-          <DefaultHomePage />
-        </div>
-      )} */}
       {(selectedMenu === "Home" ||
-        !["Menu", "Rewards", "Order"].includes(selectedMenu)) && (
+        !["Menu", "Rewards", "Order", "Pay"].includes(selectedMenu)) && (
         <div style={{ marginTop: "20px" }}>
           <DefaultHomePage />
         </div>
@@ -191,6 +184,8 @@ const HomeContent: React.FC<HomePageProps> = ({ dataMenu, selectedMenu }) => {
       {selectedMenu === "Rewards" && <RewardsHomePage />}
 
       {selectedMenu === "Order" && <OrderHomePage />}
+
+      {selectedMenu === "Pay" && <PayHomePage />}
     </>
   );
 };

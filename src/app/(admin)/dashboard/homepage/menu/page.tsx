@@ -7,7 +7,7 @@ interface MenuItem {
   key: string;
   name: string;
   price: string;
-  drink: string;
+  type: string;
 }
 
 const ManageMenuPage = () => {
@@ -17,13 +17,13 @@ const ManageMenuPage = () => {
       key: "1",
       name: "Mike",
       price: "$32",
-      drink: "Coca",
+      type: "Coca",
     },
     {
       key: "2",
       name: "John",
       price: "$42",
-      drink: "Pepsi",
+      type: "Pepsi",
     },
   ];
 
@@ -41,8 +41,8 @@ const ManageMenuPage = () => {
     },
     {
       title: "Drink",
-      dataIndex: "drink",
-      key: "drink",
+      dataIndex: "type",
+      key: "type",
     },
     {
       title: "Action",

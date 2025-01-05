@@ -54,12 +54,16 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ menuClickRender }) => {
   const router = useRouter();
 
   // Items for the menu
-  const items1: MenuProps["items"] = ["Home", "Menu", "Rewards", "Order"].map(
-    (key) => ({
-      key,
-      label: ` ${key}`,
-    })
-  );
+  const items1: MenuProps["items"] = [
+    "Home",
+    "Menu",
+    "Rewards",
+    "Order",
+    "Pay",
+  ].map((key) => ({
+    key,
+    label: ` ${key}`,
+  }));
 
   // Hàm xử lý sự kiện khi click vào menu item
   const handleMenuClick = (e: { key: string }) => {

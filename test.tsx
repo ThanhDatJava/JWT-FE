@@ -33,11 +33,11 @@ const HomeContent = () => {
   // Hàm xử lý khi nhấn vào một món trong menu
   const handleMenuClick = (key: string) => {
     const [mainMenuIndex, subMenuIndex] = key.split("_").map(Number);
-    const drink = drinksMenu[mainMenuIndex]?.[subMenuIndex];
+    const type = drinksMenu[mainMenuIndex]?.[subMenuIndex];
     const menuName = mainMenuNames[mainMenuIndex];
-    if (drink && menuName) {
+    if (type && menuName) {
       setSelectedItem(key); // Cập nhật item được chọn
-      handleCategoryClick(drink, menuName); // Cập nhật breadcrumb
+      handleCategoryClick(type, menuName); // Cập nhật breadcrumb
     }
   };
 
@@ -47,9 +47,9 @@ const HomeContent = () => {
       return <div>Chào Mừng bạn đến với Thành Đạt Coffee!</div>;
 
     const [mainMenuIndex, subMenuIndex] = selectedItem.split("_").map(Number);
-    const drink = drinksMenu[mainMenuIndex]?.[subMenuIndex];
+    const type = drinksMenu[mainMenuIndex]?.[subMenuIndex];
 
-    return drink ? <div>{drink}</div> : <div>Không có lựa chọn nào.</div>;
+    return type ? <div>{type}</div> : <div>Không có lựa chọn nào.</div>;
   };
 
   return (
