@@ -8,7 +8,7 @@ import { ObjectId } from "mongodb";
 import ModalEditHomepage from "@/components/modal/modal.edit.homepage";
 import ModalDeleteHomepage from "@/components/modal/modal.delete.homepage";
 import ModalCreateHomepage from "@/components/modal/modal.create.homepage";
-
+import "./manage.homepage.css";
 interface DataType {
   _id: ObjectId;
   key: string; // Ensure key is a string type
@@ -90,7 +90,9 @@ const ManageHomePage: React.FC = () => {
     {
       title: "Description",
       dataIndex: "description",
+      width: "30%",
     },
+
     {
       title: "Image",
       dataIndex: "image",
@@ -98,10 +100,10 @@ const ManageHomePage: React.FC = () => {
         <img
           src={image}
           alt="image"
-          style={{ width: "100px", height: "auto" }}
+          style={{ width: "105%", height: "auto" }}
         />
       ),
-      width: "40%",
+      width: "20%", // giữ chiều rộng cột là 20%
     },
     {
       title: "Action",
@@ -116,24 +118,26 @@ const ManageHomePage: React.FC = () => {
           </Button>
         </>
       ),
-      width: "40%",
     },
   ];
 
+  const rowClassName = (record: DataType, index: number) => {
+    return index % 2 === 0 ? "even-row" : "odd-row"; // Add alternating class
+  };
+
   return (
     <>
-      <h1 style={{ textAlign: "center", marginBottom: "50px" }}>
-        Manage Homepage
-      </h1>
+      <h1 style={{ textAlign: "center" }}>Manage Homepage</h1>
       <div>
         <ModalCreateHomepage fetchData={fetchData} />
       </div>
-      <div style={{ width: "70%" }}>
+      <div style={{ width: "90%" }}>
         <Table<DataType>
           columns={columns}
           dataSource={dataDetailHomepage}
           onChange={onChange}
           rowKey="key"
+          rowClassName={rowClassName}
         />
         {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
       </div>

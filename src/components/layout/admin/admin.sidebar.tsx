@@ -1,22 +1,37 @@
 "use client";
+
 import Layout from "antd/es/layout";
 import Menu from "antd/es/menu";
 import {
   AppstoreOutlined,
   HomeOutlined,
-  MailOutlined,
-  SettingOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
 import React, { useContext } from "react";
 import { AdminContext } from "@/library/admin.context";
 import type { MenuProps } from "antd";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type MenuItem = Required<MenuProps>["items"][number];
 const AdminSideBar = () => {
+  const router = useRouter();
   const { Sider } = Layout;
   const { collapseMenu } = useContext(AdminContext)!;
+
+  const handleMenuClick = (e: { key: string }) => {
+    const routes: Record<string, string> = {
+      "Manage home": "/dashboard/homepage/home",
+      "Manage Menu": "/dashboard/homepage/menu",
+      "Manage Rewards": "/dashboard/homepage/rewards",
+      "Manage Order": "/dashboard/homepage/order",
+    };
+
+    const route = routes[e.key];
+    if (route) {
+      router.push(route);
+    }
+  };
 
   const items: MenuItem[] = [
     {
@@ -26,12 +41,12 @@ const AdminSideBar = () => {
       children: [
         {
           key: "dashboard",
-          label: <Link href={"/dashboard"}>Dashboard</Link>,
+          label: <Link href="/dashboard">Dashboard</Link>,
           icon: <AppstoreOutlined />,
         },
         {
           key: "users",
-          label: <Link href={"/dashboard/user"}>Manage Users</Link>,
+          label: <Link href="/dashboard/user">Manage Users</Link>,
           icon: <TeamOutlined />,
         },
         {
@@ -44,10 +59,8 @@ const AdminSideBar = () => {
               type: "group",
               children: [
                 {
-                  key: "1",
-                  label: (
-                    <Link href={"/dashboard/homepage/home"}>Manage home</Link>
-                  ),
+                  key: "Manage home",
+                  label: "Manage home",
                 },
               ],
             },
@@ -56,10 +69,8 @@ const AdminSideBar = () => {
               type: "group",
               children: [
                 {
-                  key: "2",
-                  label: (
-                    <Link href={"/dashboard/homepage/menu"}>Manage Menu</Link>
-                  ),
+                  key: "Manage Menu",
+                  label: "Manage Menu",
                 },
               ],
             },
@@ -68,12 +79,8 @@ const AdminSideBar = () => {
               type: "group",
               children: [
                 {
-                  key: "3",
-                  label: (
-                    <Link href={"/dashboard/homepage/rewards"}>
-                      Manage Rewards
-                    </Link>
-                  ),
+                  key: "Manage Rewards",
+                  label: "Manage Rewards",
                 },
               ],
             },
@@ -82,10 +89,8 @@ const AdminSideBar = () => {
               type: "group",
               children: [
                 {
-                  key: "4",
-                  label: (
-                    <Link href={"/dashboard/homepage/oder"}>Manage Oder </Link>
-                  ),
+                  key: "Manage Order",
+                  label: "Manage Order",
                 },
               ],
             },
@@ -102,6 +107,7 @@ const AdminSideBar = () => {
         defaultSelectedKeys={["dashboard"]}
         items={items}
         style={{ height: "100vh" }}
+        onClick={handleMenuClick} // Xử lý sự kiện click tại đây
       />
     </Sider>
   );

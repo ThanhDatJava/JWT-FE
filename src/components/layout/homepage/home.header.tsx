@@ -110,7 +110,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({ menuClickRender }) => {
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={["Menu"]}
+        defaultSelectedKeys={["Home"]}
         items={items1}
         style={{ flex: 1, minWidth: 0 }}
         onClick={handleMenuClick}

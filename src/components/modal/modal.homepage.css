@@ -1,5 +1,8 @@
 .btn-modal-edit {
   border: none !important;
+  background-color: rgb(255, 255, 255) !important;
+
+  margin: 0 2px !important;
 }
 
 .custom-button-edit {
